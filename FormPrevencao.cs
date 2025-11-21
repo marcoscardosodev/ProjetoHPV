@@ -32,7 +32,7 @@ namespace ProjetoHPV
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.Sizable;
             this.MaximizeBox = true;
-            this.MinimumSize = new Size(1000, 750); // Aumentado para dar mais espaço
+            this.MinimumSize = new Size(1000, 750); 
             this.Size = new Size(1000, 750);
 
             SetupHeader();
@@ -42,39 +42,39 @@ namespace ProjetoHPV
 
         private void SetupHeader()
         {
-            // Painel do cabeçalho - MAIS ALTO para evitar sobreposição
+            // Painel do cabeçalho 
             panelHeader = new Panel
             {
                 BackColor = Color.FromArgb(0, 150, 136),
-                Size = new Size(1000, 110), // Altura aumentada
+                Size = new Size(1000, 110), 
                 Location = new Point(0, 0),
                 Dock = DockStyle.Top
             };
             this.Controls.Add(panelHeader);
 
-            // Título principal - POSICIONADO MAIS BAIXO
+            // Título principal 
             var lblTitulo = new Label
             {
                 Text = "🛡️ Prevenção e Vacina",
                 Font = new Font("Segoe UI", 20, FontStyle.Bold),
                 ForeColor = Color.White,
                 AutoSize = true,
-                Location = new Point(30, 30) // Posição mais baixa
+                Location = new Point(30, 30) 
             };
             panelHeader.Controls.Add(lblTitulo);
 
-            // Subtítulo - POSICIONADO MAIS BAIXO
+            // Subtítulo 
             var lblSubtitulo = new Label
             {
                 Text = "Métodos preventivos, vacinação e proteção contra o HPV",
                 Font = new Font("Segoe UI", 9, FontStyle.Regular),
                 ForeColor = Color.Lavender,
                 AutoSize = true,
-                Location = new Point(32, 60) // Posição mais baixa
+                Location = new Point(32, 60) 
             };
             panelHeader.Controls.Add(lblSubtitulo);
 
-            // Botão Tela Cheia - POSICIONADO MAIS BAIXO
+            // Botão Tela Cheia 
             btnFullScreen = new Button
             {
                 Text = "⛶",
@@ -83,7 +83,7 @@ namespace ProjetoHPV
                 FlatStyle = FlatStyle.Flat,
                 FlatAppearance = { BorderSize = 0 },
                 Size = new Size(35, 25),
-                Location = new Point(panelHeader.Width - 45, 35) // Posição mais baixa
+                Location = new Point(panelHeader.Width - 45, 35) 
             };
             btnFullScreen.Click += BtnFullScreen_Click;
             panelHeader.Controls.Add(btnFullScreen);
@@ -91,13 +91,13 @@ namespace ProjetoHPV
 
         private void SetupTabControl()
         {
-            // TabControl principal - MAIS BAIXO para não sobrepor header
+            // TabControl principal 
             tabControlPrevencao = new TabControl
             {
-                Location = new Point(30, 120), // Mais baixo para dar espaço ao header
-                Size = new Size(940, 480), // Altura ajustada
+                Location = new Point(30, 120), 
+                Size = new Size(940, 480), 
                 Font = new Font("Segoe UI", 10, FontStyle.Regular),
-                ItemSize = new Size(160, 28), // Largura reduzida para caber 4 abas
+                ItemSize = new Size(160, 28), 
                 Appearance = TabAppearance.FlatButtons
             };
             this.Controls.Add(tabControlPrevencao);
@@ -131,7 +131,7 @@ namespace ProjetoHPV
         {
             var scrollPanel = new Panel
             {
-                Size = new Size(920, 440), // Altura ajustada
+                Size = new Size(920, 440), 
                 Location = new Point(10, 10),
                 AutoScroll = true,
                 BackColor = Color.Transparent
@@ -359,7 +359,7 @@ REDUÇÃO DE LESÕES:
             {
                 BackColor = Color.FromArgb(250, 250, 250),
                 Size = new Size(1000, 35),
-                Location = new Point(0, 715), // Posição ajustada
+                Location = new Point(0, 715), 
                 Dock = DockStyle.Bottom
             };
             this.Controls.Add(panelFooter);
@@ -375,7 +375,7 @@ REDUÇÃO DE LESÕES:
             };
             panelFooter.Controls.Add(lblVersao);
 
-            // Botão Voltar - POSICIONADO CORRETAMENTE (fora do footer)
+            // Botão Voltar 
             btnVoltar = new Button
             {
                 Text = "← Voltar ao Menu",
@@ -383,13 +383,13 @@ REDUÇÃO DE LESÕES:
                 BackColor = Color.FromArgb(0, 150, 136),
                 ForeColor = Color.White,
                 Size = new Size(140, 35),
-                Location = new Point(830, 625), // Posição FIXA acima do footer
+                Location = new Point(830, 625), 
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand
             };
             btnVoltar.FlatAppearance.BorderSize = 0;
             btnVoltar.Click += btnVoltar_Click;
-            this.Controls.Add(btnVoltar); // Adiciona ao FORM, não ao footer
+            this.Controls.Add(btnVoltar); 
 
             // Efeitos hover
             btnVoltar.MouseEnter += (s, e) => btnVoltar.BackColor = Color.FromArgb(0, 130, 116);
@@ -433,27 +433,27 @@ REDUÇÃO DE LESÕES:
         {
             try
             {
-                // Atualiza tamanho do header
+                
                 panelHeader.Width = this.ClientSize.Width;
 
-                // Atualiza tamanho do footer
+                
                 panelFooter.Width = this.ClientSize.Width;
                 panelFooter.Location = new Point(0, this.ClientSize.Height - panelFooter.Height);
 
-                // Centraliza o tab control
+                
                 tabControlPrevencao.Location = new Point(
                     (this.ClientSize.Width - tabControlPrevencao.Width) / 2,
-                    120 // Posição fixa abaixo do header
+                    120 
                 );
-                tabControlPrevencao.Height = this.ClientSize.Height - 175; // Altura ajustada
+                tabControlPrevencao.Height = this.ClientSize.Height - 175; 
 
-                // Ajusta botão de tela cheia - SEMPRE NO HEADER
+                
                 btnFullScreen.Location = new Point(panelHeader.Width - 45, 35);
 
-                // Ajusta botão voltar - SEMPRE VISÍVEL E ACESSÍVEL
+                
                 btnVoltar.Location = new Point(
                     this.ClientSize.Width - 160,
-                    this.ClientSize.Height - 50 // Sempre acima do footer
+                    this.ClientSize.Height - 50 
                 );
 
                 // Garante que o botão não fique sobreposto
@@ -467,7 +467,7 @@ REDUÇÃO DE LESÕES:
 
         private void CarregarConteudoPrevencao()
         {
-            // Conteúdo já carregado nos métodos Create...Content()
+           
         }
 
         private void ApplyAnimations()
@@ -543,7 +543,7 @@ REDUÇÃO DE LESÕES:
 
         private void AplicarTooltips()
         {
-            // Tooltips não são mais necessários com design de abas
+            
         }
     }
 }

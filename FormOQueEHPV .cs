@@ -38,7 +38,7 @@ namespace ProjetoHPV
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.Sizable;
             this.MaximizeBox = true;
-            this.MinimumSize = new Size(1000, 750); // Aumentado para caber mais conteúdo
+            this.MinimumSize = new Size(1000, 750); 
             this.Size = new Size(1000, 750);
 
             SetupHeader();
@@ -52,7 +52,7 @@ namespace ProjetoHPV
             panelHeader = new Panel
             {
                 BackColor = Color.FromArgb(103, 58, 183),
-                Size = new Size(1000, 100), // Reduzido para dar mais espaço ao conteúdo
+                Size = new Size(1000, 100), 
                 Location = new Point(0, 0),
                 Dock = DockStyle.Top
             };
@@ -62,7 +62,7 @@ namespace ProjetoHPV
             var lblTitulo = new Label
             {
                 Text = "🧬 O que é HPV?",
-                Font = new Font("Segoe UI", 20, FontStyle.Bold), // Fonte um pouco menor
+                Font = new Font("Segoe UI", 20, FontStyle.Bold), 
                 ForeColor = Color.White,
                 AutoSize = true,
                 Location = new Point(30, 25)
@@ -73,7 +73,7 @@ namespace ProjetoHPV
             var lblSubtitulo = new Label
             {
                 Text = "Conheça o Papilomavírus Humano - tipos, transmissão e importância",
-                Font = new Font("Segoe UI", 9, FontStyle.Regular), // Fonte menor
+                Font = new Font("Segoe UI", 9, FontStyle.Regular), 
                 ForeColor = Color.Lavender,
                 AutoSize = true,
                 Location = new Point(32, 55)
@@ -97,14 +97,14 @@ namespace ProjetoHPV
 
         private void SetupContent()
         {
-            // Painel de conteúdo com scroll - MAIOR para caber todo o conteúdo
+            // Painel de conteúdo com scroll 
             panelConteudo = new Panel
             {
                 Location = new Point(30, 110),
-                Size = new Size(940, 500), // Aumentado
+                Size = new Size(940, 500),
                 AutoScroll = true,
                 BackColor = Color.Transparent,
-                AutoScrollMinSize = new Size(920, 1600) // Tamanho mínimo para scroll
+                AutoScrollMinSize = new Size(920, 1600) 
             };
             this.Controls.Add(panelConteudo);
 
@@ -114,10 +114,10 @@ namespace ProjetoHPV
             lblTextoPrincipal = new Label
             {
                 Text = "",
-                Font = new Font("Segoe UI", 10, FontStyle.Regular), // Fonte menor
+                Font = new Font("Segoe UI", 10, FontStyle.Regular), 
                 ForeColor = Color.FromArgb(64, 64, 64),
                 Location = new Point(20, yPos),
-                Size = new Size(880, 120), // Altura fixa com scroll interno se necessário
+                Size = new Size(880, 120), 
                 TextAlign = ContentAlignment.TopLeft
             };
             panelConteudo.Controls.Add(lblTextoPrincipal);
@@ -127,7 +127,7 @@ namespace ProjetoHPV
             var lblTiposTitulo = new Label
             {
                 Text = "📋 TIPOS DE HPV",
-                Font = new Font("Segoe UI", 13, FontStyle.Bold), // Fonte menor
+                Font = new Font("Segoe UI", 13, FontStyle.Bold), 
                 ForeColor = Color.FromArgb(156, 39, 176),
                 Location = new Point(20, yPos),
                 AutoSize = true
@@ -138,10 +138,10 @@ namespace ProjetoHPV
             rtbTipos = new RichTextBox
             {
                 Location = new Point(40, yPos),
-                Size = new Size(860, 180), // Altura aumentada
+                Size = new Size(860, 180), 
                 BorderStyle = BorderStyle.FixedSingle,
                 BackColor = Color.FromArgb(248, 248, 255),
-                Font = new Font("Segoe UI", 9.5f, FontStyle.Regular), // Fonte menor
+                Font = new Font("Segoe UI", 9.5f, FontStyle.Regular), 
                 ReadOnly = true,
                 ScrollBars = RichTextBoxScrollBars.Vertical
             };
@@ -163,7 +163,7 @@ namespace ProjetoHPV
             rtbTransmissao = new RichTextBox
             {
                 Location = new Point(40, yPos),
-                Size = new Size(860, 220), // Altura aumentada para caber todo o conteúdo
+                Size = new Size(860, 220), 
                 BorderStyle = BorderStyle.FixedSingle,
                 BackColor = Color.FromArgb(248, 248, 255),
                 Font = new Font("Segoe UI", 9.5f, FontStyle.Regular),
@@ -188,7 +188,7 @@ namespace ProjetoHPV
             rtbImportancia = new RichTextBox
             {
                 Location = new Point(40, yPos),
-                Size = new Size(860, 250), // Altura aumentada para caber todo o conteúdo
+                Size = new Size(860, 250), 
                 BorderStyle = BorderStyle.FixedSingle,
                 BackColor = Color.FromArgb(248, 248, 255),
                 Font = new Font("Segoe UI", 9.5f, FontStyle.Regular),
@@ -221,15 +221,15 @@ namespace ProjetoHPV
             };
             panelFooter.Controls.Add(lblVersao);
 
-            // Botão Voltar - POSICIONADO CORRETAMENTE
+            // Botão Voltar 
             btnVoltar = new Button
             {
                 Text = "← Voltar ao Menu",
                 Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                BackColor = Color.FromArgb(103, 58, 183), // Cor combinando com o header
+                BackColor = Color.FromArgb(103, 58, 183), 
                 ForeColor = Color.White,
                 Size = new Size(140, 35),
-                Location = new Point(830, 625), // Posição fixa acima do footer
+                Location = new Point(830, 625), 
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand
             };
@@ -246,7 +246,7 @@ namespace ProjetoHPV
 
         private void CarregarConteudo()
         {
-            // Texto principal - MAIS CURTO para caber melhor
+            // Texto principal 
             lblTextoPrincipal.Text = @"O HPV (Papilomavírus Humano) é um grupo de mais de 200 tipos de vírus que infectam a pele e mucosas. É uma das Infecções Sexualmente Transmissíveis (ISTs) mais comuns no mundo.
 
 📈 PREVALÊNCIA:
@@ -453,7 +453,7 @@ esse conhecimento!";
 
         private void FormOQueEHPV_Load(object sender, EventArgs e)
         {
-            // Configuração adicional
+            
         }
 
         private void FormOQueEHPV_SizeChanged(object sender, EventArgs e)
@@ -463,7 +463,7 @@ esse conhecimento!";
 
         private void lblTextoPrincipal_Click(object sender, EventArgs e)
         {
-            // Manter vazio
+            
         }
     }
 }

@@ -16,9 +16,7 @@
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
-            // FormQuiz
-            // 
+           
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Name = "FormQuiz";
             this.Load += new System.EventHandler(this.FormQuiz_Load);

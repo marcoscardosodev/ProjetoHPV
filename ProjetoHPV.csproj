@@ -6,14 +6,23 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>Icon.ico.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="FormDiagnostico.Designer.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="Resources\AppIcon.jpeg" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\AppIcon.jpeg" />
+    <Content Include="Icon.ico.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="FormDiagnostico.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +31,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="FormDiagnostico.cs">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

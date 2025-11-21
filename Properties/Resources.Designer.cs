@@ -79,5 +79,25 @@ namespace ProjetoHPV.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icon {
+            get {
+                object obj = ResourceManager.GetObject("icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Byte[].
+        /// </summary>
+        internal static byte[] Icon_ico {
+            get {
+                object obj = ResourceManager.GetObject("Icon.ico", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

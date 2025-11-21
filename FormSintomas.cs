@@ -213,7 +213,7 @@ namespace ProjetoHPV
         {
             try
             {
-                // Se temos um formulário anterior, voltamos para ele
+                
                 if (_formAnterior != null)
                 {
                     _formAnterior.Show();
@@ -221,7 +221,7 @@ namespace ProjetoHPV
                 }
                 else
                 {
-                    // Se não temos formulário anterior, procuramos o menu principal
+                    
                     Form menuPrincipal = Application.OpenForms["FormMenuPrincipal"];
 
                     if (menuPrincipal != null)
@@ -231,7 +231,7 @@ namespace ProjetoHPV
                     }
                     else
                     {
-                        // Se não encontrou o menu, cria um novo
+                        
                         CriarNovoMenu();
                     }
                 }
@@ -248,8 +248,8 @@ namespace ProjetoHPV
         {
             try
             {
-                // Substitua "FormMenuPrincipal" pelo nome real do seu formulário de menu
-                Form menuPrincipal = new Form(); // Substitua pelo seu FormMenuPrincipal
+                
+                Form menuPrincipal = new Form(); 
                 menuPrincipal.Show();
                 this.Hide();
             }
@@ -264,7 +264,7 @@ namespace ProjetoHPV
         {
             base.OnFormClosing(e);
 
-            // Se o usuário está fechando o form (X) e há formulário anterior, mostre-o
+            
             if (e.CloseReason == CloseReason.UserClosing && _formAnterior != null)
             {
                 _formAnterior.Show();

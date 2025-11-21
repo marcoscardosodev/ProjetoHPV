@@ -27,7 +27,7 @@ namespace ProjetoHPV
 
         private void InitializeImprovedDesign()
         {
-            // Configurações básicas do form
+            // Configurações básicas do form 
             this.Text = "Estatísticas e Dados - HPV 📊";
             this.BackColor = Color.White;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -40,22 +40,21 @@ namespace ProjetoHPV
             SetupTabControl();
             SetupFooter();
             _isInitialized = true;
-
         }
 
         private void SetupHeader()
         {
-            // Painel do cabeçalho
+            // Painel do cabeçalho 
             panelHeader = new Panel
             {
-                BackColor = Color.FromArgb(63, 81, 181), // Azul para estatísticas
+                BackColor = Color.FromArgb(63, 81, 181), // Azul para estatísticas 
                 Size = new Size(1000, 120),
                 Location = new Point(0, 0),
                 Dock = DockStyle.Top
             };
             this.Controls.Add(panelHeader);
 
-            // Título principal
+            // Título principal 
             var lblTitulo = new Label
             {
                 Text = "📊 Estatísticas e Dados",
@@ -66,7 +65,7 @@ namespace ProjetoHPV
             };
             panelHeader.Controls.Add(lblTitulo);
 
-            // Subtítulo
+            // Subtítulo 
             var lblSubtitulo = new Label
             {
                 Text = "Dados atualizados sobre prevalência, prevenção e tipos de HPV",
@@ -77,7 +76,7 @@ namespace ProjetoHPV
             };
             panelHeader.Controls.Add(lblSubtitulo);
 
-            // Botão Tela Cheia
+            // Botão Tela Cheia 
             btnFullScreen = new Button
             {
                 Text = "⛶",
@@ -94,7 +93,7 @@ namespace ProjetoHPV
 
         private void SetupTabControl()
         {
-            // TabControl principal
+            // TabControl principal 
             tabControlEstatisticas = new TabControl
             {
                 Location = new Point(50, 140),
@@ -105,19 +104,19 @@ namespace ProjetoHPV
             };
             this.Controls.Add(tabControlEstatisticas);
 
-            // Aba 1: Dados Estatísticos
+            // Aba 1: Dados Estatísticos 
             var tabPageDados = new TabPage("📊 Dados Estatísticos");
             tabPageDados.BackColor = Color.FromArgb(248, 248, 255);
             SetupTabContent(tabPageDados, CreateDadosContent());
             tabControlEstatisticas.Controls.Add(tabPageDados);
 
-            // Aba 2: Prevenção e Impacto
+            // Aba 2: Prevenção e Impacto 
             var tabPagePrevencao = new TabPage("🛡️ Prevenção e Impacto");
             tabPagePrevencao.BackColor = Color.FromArgb(248, 248, 255);
             SetupTabContent(tabPagePrevencao, CreatePrevencaoContent());
             tabControlEstatisticas.Controls.Add(tabPagePrevencao);
 
-            // Aba 3: Tipos de HPV
+            // Aba 3: Tipos de HPV 
             var tabPageTipos = new TabPage("🔬 Tipos de HPV");
             tabPageTipos.BackColor = Color.FromArgb(248, 248, 255);
             SetupTabContent(tabPageTipos, CreateTiposContent());
@@ -148,8 +147,7 @@ namespace ProjetoHPV
                 Font = new Font("Segoe UI", 10, FontStyle.Regular),
                 ReadOnly = true
             };
-
-            rtb.Text = @"📊 DADOS ESTATÍSTICOS SOBRE HPV
+            rtb.Text = @"📊 DADOS ESTATÍSTICOS SOBRE HPV 
 
 🌍 PREVALÊNCIA MUNDIAL:
 • 80% da população sexualmente ativa terá contato com HPV
@@ -176,7 +174,6 @@ namespace ProjetoHPV
 • Redução de 90% em verrugas genitais em países com alta vacinação
 • Queda de 50% em lesões pré-cancerosas em mulheres vacinadas
 • Austrália projeta eliminação do câncer cervical até 2035";
-
             return rtb;
         }
 
@@ -191,8 +188,7 @@ namespace ProjetoHPV
                 Font = new Font("Segoe UI", 10, FontStyle.Regular),
                 ReadOnly = true
             };
-
-            rtb.Text = @"🛡️ IMPACTO DA PREVENÇÃO
+            rtb.Text = @"🛡️ IMPACTO DA PREVENÇÃO 
 
 🎯 EFICÁCIA DA VACINAÇÃO:
 • Reduz 90% das verrugas genitais
@@ -228,7 +224,6 @@ namespace ProjetoHPV
 • Conhecimento salva vidas - compartilhe informações
 • Saúde é direito de todos - exija seus direitos
 • Jovens informados = adultos saudáveis";
-
             return rtb;
         }
 
@@ -243,12 +238,11 @@ namespace ProjetoHPV
                 Font = new Font("Segoe UI", 10, FontStyle.Regular),
                 ReadOnly = true
             };
-
-            rtb.Text = @"🔬 TIPOS DE HPV E SUAS CARACTERÍSTICAS
+            rtb.Text = @"🔬 TIPOS DE HPV E SUAS CARACTERÍSTICAS 
 
 📈 DISTRIBUIÇÃO DOS PRINCIPAIS TIPOS:
 • HPV-16: 35% dos casos (alto risco oncogênico)
-• HPV-18: 20% dos casos (alto risco oncogênico)  
+• HPV-18: 20% dos casos (alto risco oncogênico)
 • HPV-6: 8% dos casos (baixo risco - verrugas)
 • HPV-11: 4% dos casos (baixo risco - verrugas)
 • Outros tipos: 33% dos casos
@@ -287,13 +281,12 @@ namespace ProjetoHPV
 • Tabagismo
 • Imunossupressão
 • Não uso de preservativos";
-
             return rtb;
         }
 
         private void SetupFooter()
         {
-            // Painel do rodapé
+            // Painel do rodapé 
             panelFooter = new Panel
             {
                 BackColor = Color.FromArgb(250, 250, 250),
@@ -303,7 +296,7 @@ namespace ProjetoHPV
             };
             this.Controls.Add(panelFooter);
 
-            // Versão
+            // Versão 
             var lblVersao = new Label
             {
                 Text = "Dados atualizados 2024 • Fonte: OMS, INCA, Ministério da Saúde",
@@ -314,25 +307,36 @@ namespace ProjetoHPV
             };
             panelFooter.Controls.Add(lblVersao);
 
-            // Botão Voltar
+            // Botão Voltar - AGORA NO RODAPÉ
             btnVoltar = new Button
             {
                 Text = "← Voltar ao Menu",
-                Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                BackColor = Color.FromArgb(158, 158, 158),
+                Font = new Font("Segoe UI", 9, FontStyle.Bold),
+                BackColor = Color.FromArgb(63, 81, 181),
                 ForeColor = Color.White,
-                Size = new Size(150, 40),
-                Location = new Point(825, 550),
+                Size = new Size(120, 30),
+                Location = new Point(panelFooter.Width - 140, 5),
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand
             };
             btnVoltar.FlatAppearance.BorderSize = 0;
             btnVoltar.Click += btnVoltar_Click;
-            this.Controls.Add(btnVoltar);
 
-            // Efeitos hover
-            btnVoltar.MouseEnter += (s, e) => btnVoltar.BackColor = Color.FromArgb(120, 120, 120);
-            btnVoltar.MouseLeave += (s, e) => btnVoltar.BackColor = Color.FromArgb(158, 158, 158);
+            // Efeitos hover melhorados
+            btnVoltar.MouseEnter += (s, e) =>
+            {
+                btnVoltar.BackColor = Color.FromArgb(48, 63, 159);
+                btnVoltar.ForeColor = Color.White;
+            };
+            btnVoltar.MouseLeave += (s, e) =>
+            {
+                btnVoltar.BackColor = Color.FromArgb(63, 81, 181);
+                btnVoltar.ForeColor = Color.White;
+            };
+
+            panelFooter.Controls.Add(btnVoltar);
+
+            // Efeitos hover para botão fullscreen
             btnFullScreen.MouseEnter += (s, e) => btnFullScreen.BackColor = Color.FromArgb(100, 100, 100, 100);
             btnFullScreen.MouseLeave += (s, e) => btnFullScreen.BackColor = Color.Transparent;
         }
@@ -346,11 +350,10 @@ namespace ProjetoHPV
         {
             if (!isFullScreen)
             {
-                // Entra em tela cheia
+                // Entra em tela cheia 
                 originalSize = this.Size;
                 originalLocation = this.Location;
                 originalWindowState = this.WindowState;
-
                 this.FormBorderStyle = FormBorderStyle.None;
                 this.WindowState = FormWindowState.Normal;
                 this.Bounds = Screen.PrimaryScreen.Bounds;
@@ -359,7 +362,7 @@ namespace ProjetoHPV
             }
             else
             {
-                // Sai da tela cheia
+                // Sai da tela cheia 
                 this.FormBorderStyle = FormBorderStyle.Sizable;
                 this.WindowState = originalWindowState;
                 this.Size = originalSize;
@@ -372,42 +375,33 @@ namespace ProjetoHPV
 
         private void UpdateLayout()
         {
-            if (!_isInitialized)
-                return;
+            if (!_isInitialized) return;
 
-            // Atualiza tamanho do header
             panelHeader.Width = this.ClientSize.Width;
-
-            // Atualiza tamanho do footer
             panelFooter.Width = this.ClientSize.Width;
             panelFooter.Location = new Point(0, this.ClientSize.Height - panelFooter.Height);
 
-            // Centraliza o tab control
             tabControlEstatisticas.Location = new Point(
                 (this.ClientSize.Width - tabControlEstatisticas.Width) / 2,
                 140
             );
             tabControlEstatisticas.Height = this.ClientSize.Height - 220;
 
-            // Ajusta botão de tela cheia
             btnFullScreen.Location = new Point(panelHeader.Width - 50, 15);
 
-            // Ajusta botão voltar
+            // Atualiza posição do botão voltar no rodapé
             btnVoltar.Location = new Point(
-             this.ClientSize.Width - 170,
-             this.ClientSize.Height - 100
+                panelFooter.Width - 130,
+                5
             );
-
         }
 
         private void CarregarDadosEstatisticos()
         {
-            // Conteúdo já carregado nos métodos Create...Content()
         }
 
         private void ApplyAnimations()
         {
-            // Fade in suave
             this.Opacity = 0;
             System.Windows.Forms.Timer fadeTimer = new System.Windows.Forms.Timer();
             fadeTimer.Interval = 20;
@@ -423,7 +417,7 @@ namespace ProjetoHPV
 
         private void btnVoltar_Click(object sender, EventArgs e)
         {
-            // Animação de saída
+            // Animação de saída 
             this.Opacity = 1;
             System.Windows.Forms.Timer fadeTimer = new System.Windows.Forms.Timer();
             fadeTimer.Interval = 20;
@@ -442,7 +436,6 @@ namespace ProjetoHPV
 
         private void VoltarParaMenu()
         {
-            // Método correto para voltar ao menu
             foreach (Form form in Application.OpenForms)
             {
                 if (form is FormMenuPrincipal)
@@ -454,7 +447,7 @@ namespace ProjetoHPV
             this.Close();
         }
 
-        // Atalhos de teclado
+        // Atalhos de teclado 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == Keys.F11)
@@ -467,15 +460,17 @@ namespace ProjetoHPV
                 ToggleFullScreen();
                 return true;
             }
+            if (keyData == Keys.Escape)
+            {
+                btnVoltar_Click(null, EventArgs.Empty);
+                return true;
+            }
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void FormEstatisticas_Load(object sender, EventArgs e)
         {
-            if (!_isInitialized)
-                return;
-
-            // Configuração adicional se necessário
+            if (!_isInitialized) return;
         }
 
         private void FormEstatisticas_SizeChanged(object sender, EventArgs e)

@@ -16,9 +16,7 @@
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
-            // FormPrevencao
-            // 
+            
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Name = "FormPrevencao";
             this.Load += new System.EventHandler(this.FormPrevencao_Load);

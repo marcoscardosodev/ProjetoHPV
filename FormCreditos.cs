@@ -70,7 +70,7 @@ namespace ProjetoHPV
             leftPanel.Controls.Add(lblTitulo);
 
             // Disciplina
-            AddSection(leftPanel, "📚 Disciplina", "Desenvolvimento de Software");
+            AddSection(leftPanel, "📚 Disciplina", "Programação De Computadores");
 
             // Professor
             AddSection(leftPanel, "👨‍🏫 Professor Responsável", "Prof. Dr. Elvio Gilberto da Silva");

@@ -10,10 +10,14 @@ namespace ProjetoHPV
         private Panel panelMain;
         private TabControl tabControlDiagnostico;
         private Button btnVoltar;
+        private Form _formAnterior;
+        private bool _isFullScreen = false;
 
-        public FormDiagnostico()
+        // Construtor modificado para receber formulário anterior
+        public FormDiagnostico(Form formAnterior = null)
         {
-            InitializeComponent();
+            _formAnterior = formAnterior;
+            
             InitializeImprovedDesign();
             CarregarConteudoDiagnostico();
             AplicarTooltips();
@@ -26,13 +30,195 @@ namespace ProjetoHPV
             this.Text = "Diagnóstico e Tratamento - HPV 💜";
             this.BackColor = Color.White;
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
+            this.FormBorderStyle = FormBorderStyle.Sizable; // Permitir redimensionamento
+            this.MaximizeBox = true; // Permitir maximizar
             this.Size = new Size(1000, 700);
+            this.MinimumSize = new Size(800, 600);
 
             SetupHeader();
             SetupTabControl();
             SetupFooter();
+
+            // Registrar eventos de redimensionamento
+            this.Resize += FormDiagnostico_Resize;
+            this.KeyPreview = true; // Permitir capturar teclas
+            this.KeyDown += FormDiagnostico_KeyDown; // Atalho F11 para tela cheia
+        }
+
+        private void FormDiagnostico_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Atalho F11 para tela cheia
+            if (e.KeyCode == Keys.F11)
+            {
+                ToggleFullScreen();
+                e.Handled = true;
+            }
+            // Atalho ESC para sair da tela cheia
+            else if (e.KeyCode == Keys.Escape && _isFullScreen)
+            {
+                ToggleFullScreen();
+                e.Handled = true;
+            }
+        }
+
+        private void ToggleFullScreen()
+        {
+            _isFullScreen = !_isFullScreen;
+
+            if (_isFullScreen)
+            {
+                // Entrar em tela cheia
+                this.WindowState = FormWindowState.Normal;
+                this.FormBorderStyle = FormBorderStyle.None;
+                this.WindowState = FormWindowState.Maximized;
+            }
+            else
+            {
+                // Sair da tela cheia
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+                this.WindowState = FormWindowState.Normal;
+                this.Size = new Size(1000, 700);
+                this.CenterToScreen();
+            }
+
+            UpdateLayout();
+        }
+
+        private void FormDiagnostico_Resize(object sender, EventArgs e)
+        {
+            UpdateLayout();
+        }
+
+        private void UpdateLayout()
+        {
+            try
+            {
+                SuspendLayout();
+
+                int largura = this.ClientSize.Width;
+                int altura = this.ClientSize.Height;
+
+                // 📏 CABEÇALHO RESPONSIVO - SEMPRE NO TOPO
+                panelHeader.Width = largura;
+                panelHeader.Height = Math.Max(100, altura / 7);
+                panelHeader.Location = new Point(0, 0);
+
+                // Ajustar título e subtítulo - CENTRALIZADOS VERTICALMENTE
+                var lblTitulo = panelHeader.Controls[0] as Label;
+                var lblSubtitulo = panelHeader.Controls[1] as Label;
+
+                if (lblTitulo != null)
+                {
+                    lblTitulo.Location = new Point(largura / 20, (panelHeader.Height - 40) / 2);
+                    lblTitulo.Font = new Font("Segoe UI", Math.Min(22, largura / 45), FontStyle.Bold);
+                    lblTitulo.ForeColor = Color.White;
+                }
+
+                if (lblSubtitulo != null)
+                {
+                    lblSubtitulo.Location = new Point(largura / 20, (panelHeader.Height - 40) / 2 + 35);
+                    lblSubtitulo.Font = new Font("Segoe UI", Math.Min(10, largura / 100), FontStyle.Regular);
+                    lblSubtitulo.ForeColor = Color.Lavender;
+                }
+
+                // 📏 TABCONTROL RESPONSIVO - CENTRALIZADO E ALINHADO
+                int marginHorizontal = Math.Max(30, largura / 30);
+                int marginVertical = Math.Max(20, altura / 35);
+
+                tabControlDiagnostico.Location = new Point(marginHorizontal, panelHeader.Bottom + marginVertical);
+                tabControlDiagnostico.Size = new Size(
+                    largura - (2 * marginHorizontal),
+                    altura - panelHeader.Bottom - btnVoltar.Height - (3 * marginVertical)
+                );
+
+                // 📏 AJUSTAR TABS PARA CABER MELHOR NA LARGURA
+                int tabWidth = Math.Max(150, (tabControlDiagnostico.Width - 40) / tabControlDiagnostico.TabCount);
+                tabControlDiagnostico.ItemSize = new Size(tabWidth, 30);
+
+                // 📏 CONTEÚDO DAS ABAS RESPONSIVO E ALINHADO
+                foreach (TabPage tabPage in tabControlDiagnostico.TabPages)
+                {
+                    if (tabPage.Controls.Count > 0)
+                    {
+                        var scrollPanel = tabPage.Controls[0] as Panel;
+                        if (scrollPanel != null)
+                        {
+                            scrollPanel.Size = new Size(
+                                tabPage.Width - 25,
+                                tabPage.Height - 25
+                            );
+                            scrollPanel.Location = new Point(
+                                (tabPage.Width - scrollPanel.Width) / 2,
+                                10
+                            );
+
+                            if (scrollPanel.Controls.Count > 0)
+                            {
+                                var rtb = scrollPanel.Controls[0] as RichTextBox;
+                                if (rtb != null)
+                                {
+                                    rtb.Size = new Size(
+                                        scrollPanel.Width - 25,
+                                        Math.Max(600, scrollPanel.Height - 20)
+                                    );
+                                    rtb.Location = new Point(
+                                        (scrollPanel.Width - rtb.Width) / 2,
+                                        10
+                                    );
+                                    rtb.Font = new Font("Segoe UI", Math.Min(10, largura / 100), FontStyle.Regular);
+                                    rtb.SelectionAlignment = HorizontalAlignment.Left;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // 📏 BOTÃO VOLTAR RESPONSIVO - SEMPRE CENTRALIZADO NA BASE
+                btnVoltar.Size = new Size(
+                    Math.Min(220, largura / 4),
+                    Math.Max(40, altura / 18)
+                );
+                btnVoltar.Location = new Point(
+                    (largura - btnVoltar.Width) / 2,
+                    altura - btnVoltar.Height - marginVertical
+                );
+                btnVoltar.Font = new Font("Segoe UI", Math.Min(11, largura / 90), FontStyle.Bold);
+
+                // 📏 BOTÃO TELA CHEIA - SEMPRE NO CANTO SUPERIOR DIREITO
+                var btnFullScreen = panelHeader.Controls["btnFullScreen"] as Button;
+                if (btnFullScreen == null)
+                {
+                    btnFullScreen = new Button
+                    {
+                        Name = "btnFullScreen",
+                        Text = _isFullScreen ? "❐" : "⛶",
+                        Font = new Font("Segoe UI", 12, FontStyle.Bold),
+                        BackColor = Color.Transparent,
+                        ForeColor = Color.White,
+                        Size = new Size(40, 30),
+                        FlatStyle = FlatStyle.Flat,
+                        Cursor = Cursors.Hand
+                    };
+                    btnFullScreen.FlatAppearance.BorderSize = 0;
+                    btnFullScreen.Click += (s, e) => ToggleFullScreen();
+                    panelHeader.Controls.Add(btnFullScreen);
+                }
+
+                btnFullScreen.Location = new Point(
+                    panelHeader.Width - btnFullScreen.Width - 10,
+                    10
+                );
+                btnFullScreen.BringToFront();
+
+                ResumeLayout();
+
+                // Forçar redesenho para evitar artefatos visuais
+                this.Invalidate();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro no layout responsivo: {ex.Message}");
+            }
         }
 
         private void SetupHeader()
@@ -42,8 +228,7 @@ namespace ProjetoHPV
             {
                 BackColor = Color.FromArgb(147, 112, 219),
                 Size = new Size(1000, 100),
-                Location = new Point(0, 0),
-                Dock = DockStyle.Top
+                Location = new Point(0, 0)
             };
             this.Controls.Add(panelHeader);
 
@@ -53,8 +238,7 @@ namespace ProjetoHPV
                 Text = "🔬 Diagnóstico e Tratamento",
                 Font = new Font("Segoe UI", 22, FontStyle.Bold),
                 ForeColor = Color.White,
-                AutoSize = true,
-                Location = new Point(50, 30)
+                AutoSize = true
             };
             panelHeader.Controls.Add(lblTitulo);
 
@@ -64,8 +248,7 @@ namespace ProjetoHPV
                 Text = "Conheça os exames, tratamentos e importância do diagnóstico precoce",
                 Font = new Font("Segoe UI", 10, FontStyle.Regular),
                 ForeColor = Color.Lavender,
-                AutoSize = true,
-                Location = new Point(52, 65)
+                AutoSize = true
             };
             panelHeader.Controls.Add(lblSubtitulo);
         }
@@ -130,7 +313,8 @@ namespace ProjetoHPV
                 BorderStyle = BorderStyle.None,
                 BackColor = Color.FromArgb(248, 248, 255),
                 Font = new Font("Segoe UI", 10, FontStyle.Regular),
-                ReadOnly = true
+                ReadOnly = true,
+                WordWrap = true
             };
 
             rtb.Text = @"🔬 EXAMES DE DIAGNÓSTICO DO HPV
@@ -177,7 +361,8 @@ namespace ProjetoHPV
                 BorderStyle = BorderStyle.None,
                 BackColor = Color.FromArgb(248, 248, 255),
                 Font = new Font("Segoe UI", 10, FontStyle.Regular),
-                ReadOnly = true
+                ReadOnly = true,
+                WordWrap = true
             };
 
             rtb.Text = @"💊 TRATAMENTOS DISPONÍVEIS
@@ -212,6 +397,7 @@ namespace ProjetoHPV
             return rtb;
         }
 
+        // MÉTODO CORRIGIDO: CreateAcompanhamentoContent (estava faltando)
         private RichTextBox CreateAcompanhamentoContent()
         {
             var rtb = new RichTextBox
@@ -221,7 +407,8 @@ namespace ProjetoHPV
                 BorderStyle = BorderStyle.None,
                 BackColor = Color.FromArgb(248, 248, 255),
                 Font = new Font("Segoe UI", 10, FontStyle.Regular),
-                ReadOnly = true
+                ReadOnly = true,
+                WordWrap = true
             };
 
             rtb.Text = @"📅 ACOMPANHAMENTO MÉDICO
@@ -256,6 +443,7 @@ namespace ProjetoHPV
             return rtb;
         }
 
+        // MÉTODO CORRIGIDO: CreateImportanciaContent (estava faltando)
         private RichTextBox CreateImportanciaContent()
         {
             var rtb = new RichTextBox
@@ -265,7 +453,8 @@ namespace ProjetoHPV
                 BorderStyle = BorderStyle.None,
                 BackColor = Color.FromArgb(248, 248, 255),
                 Font = new Font("Segoe UI", 10, FontStyle.Regular),
-                ReadOnly = true
+                ReadOnly = true,
+                WordWrap = true
             };
 
             rtb.Text = @"🎯 IMPORTÂNCIA DO DIAGNÓSTICO PRECOCE
@@ -316,7 +505,6 @@ namespace ProjetoHPV
                 BackColor = Color.FromArgb(158, 158, 158),
                 ForeColor = Color.White,
                 Size = new Size(180, 40),
-                Location = new Point(410, 590),
                 FlatStyle = FlatStyle.Flat,
                 Cursor = Cursors.Hand
             };
@@ -341,6 +529,13 @@ namespace ProjetoHPV
         {
             ToolTip toolTip = new ToolTip();
             toolTip.SetToolTip(btnVoltar, "Retornar ao menu principal");
+
+            var btnFullScreen = panelHeader?.Controls["btnFullScreen"] as Button;
+            if (btnFullScreen != null)
+            {
+                toolTip.SetToolTip(btnFullScreen, "Tela Cheia (F11)");
+            }
+
             toolTip.AutoPopDelay = 5000;
             toolTip.InitialDelay = 500;
         }
@@ -362,43 +557,79 @@ namespace ProjetoHPV
 
         private void btnVoltar_Click(object sender, EventArgs e)
         {
-            // Procura o FormMenuPrincipal aberto
-            FormMenuPrincipal menuForm = FindMenuForm();
+            VoltarParaMenu();
+        }
 
-            if (menuForm != null)
+        private void VoltarParaMenu()
+        {
+            try
             {
-                menuForm.Show();
-                this.Close(); // Fecha o form atual
+                // Se temos um formulário anterior, voltamos para ele
+                if (_formAnterior != null)
+                {
+                    _formAnterior.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    // Se não temos formulário anterior, procuramos o menu principal
+                    Form menuPrincipal = Application.OpenForms["FormMenuPrincipal"];
+
+                    if (menuPrincipal != null)
+                    {
+                        menuPrincipal.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        // Se não encontrou o menu, cria um novo
+                        CriarNovoMenu();
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                // Se não encontrar, volta para o main
-                FormMain main = new FormMain();
-                main.Show();
-                this.Close();
+                MessageBox.Show($"Erro ao voltar para o menu: {ex.Message}\nTentando abrir novo menu...",
+                              "Erro de Navegação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                CriarNovoMenu();
             }
         }
 
-        private FormMenuPrincipal FindMenuForm()
+        private void CriarNovoMenu()
         {
-            foreach (Form form in Application.OpenForms)
+            try
             {
-                if (form is FormMenuPrincipal && form != this)
-                {
-                    return (FormMenuPrincipal)form;
-                }
+                // Substitua "FormMenuPrincipal" pelo nome real do seu formulário de menu
+                Form menuPrincipal = new Form(); // Substitua pelo seu FormMenuPrincipal
+                menuPrincipal.Show();
+                this.Hide();
             }
-            return null;
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Não foi possível voltar ao menu. Erro: {ex.Message}",
+                              "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            // Se o usuário está fechando o form (X) e há formulário anterior, mostre-o
+            if (e.CloseReason == CloseReason.UserClosing && _formAnterior != null)
+            {
+                _formAnterior.Show();
+            }
         }
 
         private void FormDiagnostico_Load(object sender, EventArgs e)
         {
-            // Configuração adicional se necessário
+            UpdateLayout();
         }
 
         private void FormDiagnostico_Load_1(object sender, EventArgs e)
         {
-
+            // Método mantido para compatibilidade
         }
     }
 }
